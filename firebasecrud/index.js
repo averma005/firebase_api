@@ -5,6 +5,14 @@ const config = require("./config.js");
 const studentRoutes = require("./routes/student-routes");
 const app = express();
 
+var admin = require("firebase-admin");
+
+var serviceAccount = require("path/to/serviceAccountKey.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
 app.use(express.json());
 app.use(cors());
 
