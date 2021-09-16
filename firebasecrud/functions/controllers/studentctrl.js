@@ -1,8 +1,13 @@
 "use strict";
-const { db } = require("../db");
-const firebase = require("firebase");
+//const { db } = require("../db");
+const firebase = require("firebase-admin");
 const Student = require("../models/student");
 const studentRoutes = require("../routes/student-routes");
+var serviceAccount = require("../testingnodefirebase-firebase-adminsdk-3r3mq-c1b23f2251.json");
+firebase.initializeApp({
+  credential: firebase.credential.cert(serviceAccount),
+  databaseURL: "https://testingnodefirebase-default-rtdb.firebaseio.com",
+});
 const firestore = firebase.firestore();
 
 const addStudent = async (req, res, nex) => {
@@ -29,7 +34,9 @@ const getallstudent = async (req, res, next) => {
       });
       res.send(studentarray);
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log("error:" + error);
+  }
 };
 const updatestudent = async (req, res, next) => {
   try {
